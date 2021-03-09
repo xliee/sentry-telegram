@@ -10,12 +10,12 @@ with open('README.rst', 'r') as f:
 
 
 setup(
-    name='sentry_telegram',
+    name='sentry_telegram_py3',
     version=__version__,
     packages=['sentry_telegram'],
-    url='https://github.com/butorov/sentry-telegram',
-    author='Viacheslav Butorov',
-    author_email='butorovv@gmail.com',
+    url='https://github.com/vortland/sentry-telegram',
+    author='Vladislav Bukhman',
+    author_email='rpechka@gmail.com',
     description='Plugin for Sentry which allows sending notification via Telegram messenger.',
     long_description=long_description,
     long_description_content_type='text/x-rst',
@@ -34,6 +34,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Software Development :: Bug Tracking',
         'Topic :: Software Development :: Quality Assurance',

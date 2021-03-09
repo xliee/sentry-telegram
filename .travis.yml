@@ -2,7 +2,8 @@ services:
   - redis-server
 language: python
 python:
-  - "2.7"
+  - '2.7'
+  - '3.7'
 install:
   - travis_retry pip install tox
 script: tox -e $TOX_ENV
@@ -11,15 +12,16 @@ env:
   - TOX_ENV=py27-sentry822
   - TOX_ENV=py27-sentry9
   - TOX_ENV=py27-sentry91
+  - TOX_ENV=py37-sentry201
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: pypi
-  user: "Shmele"
+  user: vortland
   password:
-    secure: "C/RU+2Ug76r/9K/cpshW4x7CqouJS8MPo0vNzyXiVBABIgyndLCJLl9zWq+/lf4FnybqJijWTZb53emBYXSDqb5R1RZCknrhNS2Ei5FBiWselLHUsvB8yiC4o9O75CIwlUMzBOppT4wZ2ILJky9bMnB6VEVjFcbcFnHXCjOKMjwU+P2YscRATQPnpcptsat6UiStRx0z707HCR9r4dyUqhn7iKG5vYibrPwHOx6++Ba6T8BUHCdAyXwGi190CCEdNbu6lI/PbTvOCnBuqclxuOzrpsE0BXKy85QhGdRukohW1JMqluzdiAf2dLhQwVUgAHRZcUfIhq4yi9Dkfh64QcfRL4fAAiqm03e1rrQEcmSPjhby7tUu1iUzVkM/bO9FUCLyFGKtojbBEhECyXowZgdkD+WEuSebJTs2u+gGYVg4Ul1UfZ4lTr341O9uHoyJ5nUePHxHXWLy5hPaRZixkxdKd+y9CGJem5moKex5UMy/nMYyatWrHeLGNhmXvTzhT+NlWuBkANOihbbdaFQ7uKNvBvfy7BwWWBahHQyzb6YmD9tMCWXkOV7g7+42GWFm3M21JXjQ/j9lyLyAyIBWr04nF1r1qpAdJ6In/f1+K1uNCzkH9Y69wvpserLQqTXbd3Di3M/dWFLRO7S4jIV0P/gX2WCvEZQXkqf/Loy/m04="
+    secure: b2Uk7+6JmsSDiE9q7Jx5SA/fu2Zf3AC9dvu3vJNhLPlCU1CqVry7b8acbjByYzwatOWa2K7PnmKzO/Og7GDdSeHeAj3zzHpFAWCENV7sX8c5Vx2Ac4W3RZ1ZnKkmBJKLAJft6FZwwrGIhjGUtiArNcbLalnKBGpG5ywPYqdGrl1sAmveuuxmALsTOkGQuSzK03Knv3qck3QizuDWmqOUYknRgPItPo1P21/TvoBme57stkb9PJbavS4UtbW34SBc6MMgSUjpAkqDqzbNv/M3hZR/QswZ1G5TGNeU40gqseDSDii/j69fmsrtL41WQkk43GhwX/1KyxdtZXnAdQQyBJALB78kuEGb1MCoBTSW5LtgFusdGXnkScpYRo7YVE9PGZ0r4bqaUap/yx0nyFxaNwipvbFPrfEbE3y9InDeCWO/89kGMJefglbz7ymN42y394QtXdoEeF84uMHwqDHZYwpz3ZWtCGgdl9GejauWYJVjCDlCLmeCgJqkcF4RG5V0pcojfJbb0rE1/bKwz5FgdetGM1SWjxCeKu++3wB0Q18QX0rpLDefBQ07jZhgJ1yKL0Os18UCP3JONNHV1ua2gPK7E5uG1wxr+sBg989bCRefXNFZmynqFPda94rVbVzpEbEJ1tIFHoo1qXfAOS0hVbrVsbaunymxm9/r07bf4n4=
   skip_existing: true
   skip_cleanup: true
   on:
     tags: true
-  distributions: "sdist bdist_wheel"
+  distributions: sdist bdist_wheel
