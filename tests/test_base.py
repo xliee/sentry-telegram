@@ -27,7 +27,7 @@ class BaseTest(PluginTestCase):
                             'http://testserver/baz/bar/issues/1/' % {'platform': self.get_platform_name_str()}
 
     def test_is_registered(self):
-        assert plugins.get('sentry_telegram').slug == self.plugin.slug
+        assert plugins.get('sentry_telegram_py3').slug == self.plugin.slug
 
     def send_notification_helper(self):
         self.initialized_plugin.set_option('api_origin', 'https://api.telegram.org', self.project)
