@@ -18,6 +18,8 @@ install:
   - sudo apt update
   - sudo apt install libxml2-dev libxmlsec1-dev libxmlsec1-openssl pkg-config -y
   - travis_retry pip install tox
+before_script:
+  - psql -c 'create database sentry;' -U postgres
 script: tox -e $TOX_ENV
 after_success:
   - bash <(curl -s https://codecov.io/bash)
