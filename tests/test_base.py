@@ -5,7 +5,7 @@ from distutils.version import LooseVersion as V
 import pytest
 
 import sentry
-from sentry.plugins import plugins, Notification
+from sentry.plugins.base import plugins, Notification
 from sentry.testutils import PluginTestCase
 from sentry.utils.samples import create_sample_event
 

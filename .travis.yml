@@ -1,5 +1,6 @@
 services:
-  - redis-server
+  - redis
+  - postgresql
 language: python
 jobs:
   include:
