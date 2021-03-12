@@ -6,6 +6,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from sentry.plugins.bases import notify
+from sentry_plugins.base import CorePluginMixin
 from sentry.http import safe_urlopen
 from sentry.utils.safe import safe_execute
 
@@ -37,7 +38,7 @@ class TelegramNotificationsOptionsForm(notify.NotificationConfigurationForm):
     )
 
 
-class TelegramNotificationsPlugin(notify.NotificationPlugin):
+class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
     title = 'Telegram Notifications Python3'
     slug = 'sentry_telegram_py3'
     description = package_doc
@@ -48,7 +49,7 @@ class TelegramNotificationsPlugin(notify.NotificationPlugin):
         ('Source', 'https://github.com/vortland/sentry-telegram'),
     ]
 
-    conf_key = 'sentry_telegram'
+    conf_key = 'sentry_telegram_py3'
     conf_title = title
 
     project_conf_form = TelegramNotificationsOptionsForm
