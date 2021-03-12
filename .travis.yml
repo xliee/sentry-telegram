@@ -18,8 +18,8 @@ jobs:
 install:
   - sudo apt update
   - sudo apt install libxml2-dev libxmlsec1-dev libxmlsec1-openssl pkg-config -y
-  - docker run -p 8123:8123 -p 9000:9000 -p 9009:9009 -d yandex/clickhouse-server:20.3.9.70
-  - docker run -p 1218:1218 -d getsentry/snuba:nightly 
+  - docker run -p 8123:8123 -p 9000:9000 -p 9009:9009 -d --name sentry_clickhouse yandex/clickhouse-server:20.3.9.70 
+  - docker run -p 1218:1218 -d -e CLICKHOUSE_HOST=127.0.0.1:9000 getsentry/snuba:nightly 
   - docker ps -a
   - travis_retry pip install tox
 before_script:
