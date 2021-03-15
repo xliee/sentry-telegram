@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from sentry.plugins.bases import notify
 from sentry.http import safe_urlopen
+from sentry_plugins.base import CorePluginMixin
 from sentry.utils.safe import safe_execute
 
 from . import __version__, __doc__ as package_doc
@@ -37,7 +38,7 @@ class TelegramNotificationsOptionsForm(notify.NotificationConfigurationForm):
     )
 
 
-class TelegramNotificationsPlugin(notify.NotificationPlugin):
+class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
     title = 'Telegram Notifications Python3'
     slug = 'sentry_telegram_py3'
     description = package_doc
@@ -140,7 +141,7 @@ class TelegramNotificationsPlugin(notify.NotificationPlugin):
         )
         self.logger.debug('Response code: %s, content: %s' % (response.status_code, response.content))
 
-    def notify_users(self, group, event, fail_silently=False, **kwargs):
+    def notify_users(self, group, event, **kwargs):
         self.logger.debug('Received notification for event: %s' % event)
         receivers = self.get_receivers(group.project)
         self.logger.debug('for receivers: %s' % ', '.join(receivers or ()))

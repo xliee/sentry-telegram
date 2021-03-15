@@ -5,21 +5,16 @@ services:
 language: python
 jobs:
   include:
-  - python: "2.7"
-    env: TOX_ENV=py27-sentry821
-  - python: "2.7"
-    env: TOX_ENV=py27-sentry822
-  - python: "2.7"
-    env: TOX_ENV=py27-sentry9
-  - python: "2.7"
-    env: TOX_ENV=py27-sentry91
   - python: "3.7"
     env: TOX_ENV=py37-sentry20
 install:
   - sudo apt update
   - sudo apt install libxml2-dev libxmlsec1-dev libxmlsec1-openssl pkg-config -y
-  - docker run -p 8123:8123 -p 9000:9000 -p 9009:9009 -d --name sentry_clickhouse yandex/clickhouse-server:20.3.9.70 
-  - docker run -p 1218:1218 -d -e CLICKHOUSE_HOST=127.0.0.1:9000 getsentry/snuba:nightly 
+  - docker network create -d bridge sentry_test
+  - docker run -p 8123:8123 -p 9000:9000 -p 9009:9009 --network sentry_test -d --name sentry_clickhouse yandex/clickhouse-server:20.3.9.70 
+  - docker run -p 1218:1218 -d -e SNUBA_SETTINGS=docker -e DEBUG=1 -e CLICKHOUSE_HOST=sentry_clickhouse --network sentry_test --name sentry_snuba getsentry/snuba:nightly devserver --no-workers
+  - docker run --name sentry_zookeeper -p 2181:2181 -d --network sentry_test -e ZOOKEEPER_CLIENT_PORT=2181 confluentinc/cp-zookeeper:4.1.0
+  - docker run --name sentry_kafka -d -p 9092:9092 --network sentry_test -e KAFKA_ZOOKEEPER_CONNECT=sentry_zookeeper:2181 -e KAFKA_LISTENERS=INTERNAL://0.0.0.0:9093,EXTERNAL://0.0.0.0:9092 -e KAFKA_ADVERTISED_LISTENERS=INTERNAL://127.0.0.1:9093,EXTERNAL://127.0.0.1:9092 -e KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT -e KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 confluentinc/cp-kafka:5.1.2
   - docker ps -a
   - travis_retry pip install tox
 before_script:
