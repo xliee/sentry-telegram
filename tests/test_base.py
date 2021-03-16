@@ -3,14 +3,13 @@ import pytest
 
 from exam import fixture
 import json
-from six.moves.urllib.parse import parse_qs
 import responses
 from sentry.models import Rule
 from sentry.plugins.base import plugins, Notification
 from sentry.testutils import PluginTestCase
 
 
-from sentry_telegram.plugin import TelegramNotificationsPlugin
+from sentry_telegram_py3.plugin import TelegramNotificationsPlugin
 
 
 class BaseTest(PluginTestCase):

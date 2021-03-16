@@ -1,4 +1,4 @@
-Sentry Telegram |travis| |codecov| |pypi|
+Sentry Telegram Python3 |travis| |codecov| |pypi|
 =========================================
 
 Plugin for Sentry which allows sending notification via `Telegram <https://telegram.org/>`_ messenger.

@@ -2,7 +2,7 @@
 # coding: utf-8
 from setuptools import setup
 
-from sentry_telegram import __version__
+from sentry_telegram_py3 import __version__
 
 
 with open('README.rst', 'r') as f:
@@ -12,7 +12,7 @@ with open('README.rst', 'r') as f:
 setup(
     name='sentry_telegram_py3',
     version=__version__,
-    packages=['sentry_telegram'],
+    packages=['sentry_telegram_py3'],
     url='https://github.com/vortland/sentry-telegram',
     author='Vladislav Bukhman',
     author_email='rpechka@gmail.com',
@@ -22,7 +22,7 @@ setup(
     license='MIT',
     entry_points={
         'sentry.plugins': [
-            'sentry_telegram = sentry_telegram.plugin:TelegramNotificationsPlugin',
+            'sentry_telegram_py3 = sentry_telegram_py3.plugin:TelegramNotificationsPlugin',
         ],
     },
     classifiers=[
