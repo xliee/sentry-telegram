@@ -14,7 +14,7 @@ setup(
     version=__version__,
     packages=['sentry_telegram_py3'],
     url='https://github.com/vortland/sentry-telegram',
-    author='Vladislav Bukhman',
+    author='Viacheslav Butorov,Vladislav Bukhman',
     author_email='rpechka@gmail.com',
     description='Plugin for Sentry which allows sending notification via Telegram messenger.',
     long_description=long_description,
