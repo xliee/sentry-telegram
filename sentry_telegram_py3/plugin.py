@@ -106,6 +106,7 @@ class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
             'title': event.title,
             'tag': the_tags,
             'message': event.message,
+            'culprit': group.culprit,
             'project_name': group.project.name,
             'url': group.get_absolute_url(),
         }
