@@ -13,22 +13,21 @@ from sentry_telegram_py3.plugin import TelegramNotificationsPlugin
 
 
 class BaseTest(PluginTestCase):
-    plugin = TelegramNotificationsPlugin
     @fixture
-    def initialized_plugin(self):
+    def plugin(self):
         return TelegramNotificationsPlugin()
 
 
     def test_conf_key(self):
-        assert self.initialized_plugin.conf_key == "sentry_telegram_py3"
+        assert self.plugin.conf_key == "sentry_telegram_py3"
 
     @responses.activate
     def test_complex_send_notification(self):
         responses.add(responses.POST, "https://api.telegram.org/botapi:token/sendMessage")
-        self.initialized_plugin.set_option('api_origin', 'https://api.telegram.org', self.project)
-        self.initialized_plugin.set_option('receivers', '123', self.project)
-        self.initialized_plugin.set_option('api_token', 'api:token', self.project)
-        self.initialized_plugin.set_option(
+        self.plugin.set_option('api_origin', 'https://api.telegram.org', self.project)
+        self.plugin.set_option('receivers', '123', self.project)
+        self.plugin.set_option('api_token', 'api:token', self.project)
+        self.plugin.set_option(
             'message_template',
             '*[Sentry]* {project_name} {tag[level]}: {title}\n{message}\n{url}',
             self.project,
@@ -47,7 +46,7 @@ class BaseTest(PluginTestCase):
         notification = Notification(event=event, rule=rule)
 
         with self.options({"system.url-prefix": "http://example.com"}):
-            self.initialized_plugin.notify(notification)
+            self.plugin.notify(notification)
         
         request = responses.calls[0].request
         print(request)
@@ -85,16 +84,16 @@ class BaseTest(PluginTestCase):
         )
 
     def test_get_empty_receivers_list(self):
-        self.initialized_plugin.set_option('receivers', '', self.project)
-        assert self.initialized_plugin.get_receivers(self.project) == []
+        self.plugin.set_option('receivers', '', self.project)
+        assert self.plugin.get_receivers(self.project) == []
 
     def test_get_config(self):
-        self.initialized_plugin.get_config(self.project)
+        self.plugin.get_config(self.project)
 
     def test_is_configured(self):
-        self.initialized_plugin.set_option('receivers', '123', self.project)
-        self.initialized_plugin.set_option('api_token', 'api:token', self.project)
-        assert self.initialized_plugin.is_configured(self.project)
+        self.plugin.set_option('receivers', '123', self.project)
+        self.plugin.set_option('api_token', 'api:token', self.project)
+        assert self.plugin.is_configured(self.project)
 
     def test_is_not_configured(self):
-        assert not self.initialized_plugin.is_configured(self.project)
+        assert not self.plugin.is_configured(self.project)
