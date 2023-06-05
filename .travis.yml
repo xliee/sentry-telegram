@@ -11,8 +11,8 @@ language: python
 dist: focal
 jobs:
   include:
-    - python: "3.7"
-      env: TOX_ENV=py37-sentry22
+    - python: "3.8"
+      env: TOX_ENV=py38-sentry22
 install:
   - sudo apt update
   - sudo apt install libnss3-dev libxml2-dev libxmlsec1-dev libxmlsec1-openssl pkg-config -y
