@@ -33,8 +33,8 @@ Installation
 
 6. Done!
 
-.. |travis| image:: https://travis-ci.com/vortland/sentry-telegram.svg?branch=master
-   :target: https://travis-ci.com/vortland/sentry-telegram
+.. |travis| image:: https://app.travis-ci.com/vortland/sentry-telegram.svg?branch=master
+   :target: https://app.travis-ci.com/vortland/sentry-telegram
    :alt: Build Status
 
 .. |codecov| image:: https://codecov.io/gh/vortland/sentry-telegram/branch/master/graph/badge.svg
