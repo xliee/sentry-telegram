@@ -13,6 +13,7 @@ from sentry_telegram_py3.plugin import TelegramNotificationsPlugin
 
 
 class BaseTest(PluginTestCase):
+    plugin = TelegramNotificationsPlugin
     @fixture
     def initialized_plugin(self):
         return TelegramNotificationsPlugin()
