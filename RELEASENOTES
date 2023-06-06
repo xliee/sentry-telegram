@@ -1,3 +1,9 @@
+## [0.6.1]
+
+### New Features
+* add culprit support
+* add telegram topic/message_thread support
+
 ## [0.6.0]
 
 ### New Features
