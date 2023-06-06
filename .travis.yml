@@ -18,10 +18,11 @@ install:
   - sudo apt install libnss3-dev libxml2-dev libxmlsec1-dev libxmlsec1-openssl pkg-config -y
   - docker network create -d bridge sentry_test
   - docker run -p 8123:8123 -p 9000:9000 -p 9009:9009 --network sentry_test -d --name
-    sentry_clickhouse yandex/clickhouse-server:20.3.9.70
+    sentry_clickhouse yandex/clickhouse-server:20.8.19.4
   - docker run -p 1218:1218 -d -e SNUBA_SETTINGS=docker -e DEBUG=1 -e CLICKHOUSE_HOST=sentry_clickhouse
-    --network sentry_test --name sentry_snuba getsentry/snuba:nightly devserver --no-workers
+    --network sentry_test --name sentry_snuba getsentry/snuba:22.8.0 devserver --no-workers
   - docker ps -a
+  - docker logs sentry_snuba
   - travis_retry pip install tox
 before_script:
   - psql -c 'create database sentry;' -U postgres
