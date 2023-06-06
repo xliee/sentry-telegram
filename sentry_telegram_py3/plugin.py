@@ -83,7 +83,8 @@ class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
                 'name': 'receivers',
                 'label': 'Receivers',
                 'type': 'textarea',
-                'help': 'Enter receivers IDs (one per line). Personal messages, group chats and channels also available.',
+                'help': 'Enter receivers IDs (one per line). Personal messages, group chats and channels also available. \n(Optional) Enter the topic id separated by a semicolon (;)',
+                'placeholder': '-123456789;2',
                 'validators': [],
                 'required': True,
             },
@@ -131,9 +132,13 @@ class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
             return []
         return list(filter(bool, receivers.strip().splitlines()))
 
-    def send_message(self, url, payload, receiver):
-        payload['chat_id'] = receiver
-        self.logger.debug('Sending message to %s ' % receiver)
+    def send_message(self, url, payload, chat_id, message_thread_id):
+        payload['chat_id'] = chat_id
+        self.logger.debug('Sending message to chat_id: %s ' % chat_id)
+        if message_thread_id:
+            payload['message_thread_id'] = message_thread_id
+            self.logger.debug('Sending message to message_thread_id: %s ' % message_thread_id)
+            
         response = safe_urlopen(
             method='POST',
             url=url,
@@ -150,4 +155,7 @@ class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
         url = self.build_url(group.project)
         self.logger.debug('Built url: %s' % url)
         for receiver in receivers:
-            safe_execute(self.send_message, url, payload, receiver, _with_transaction=False)
+            receiver_info = receiver.split(";")
+            chat_id = receiver_info[0]
+            message_thread_id = receiver_info[1] if len(receiver_info) == 2 else None
+            safe_execute(self.send_message, url, payload, chat_id, message_thread_id, _with_transaction=False)
