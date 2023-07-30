@@ -4,6 +4,6 @@ Plugin for Sentry which allows sending notification via Telegram messenger.
 """
 
 
-__version__ = '0.6.2'
+__version__ = '0.6.3'
 __author__ = 'Xliee'
 
