@@ -47,7 +47,7 @@ class TelegramNotificationsOptionsForm(notify.NotificationConfigurationForm):
 
 
 class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
-    title = 'Telegram Notifications (xliee)'
+    title = 'Telegram Notifications'
     slug = 'xliee_sentry_telegram'
     description = package_doc
     version = __version__
