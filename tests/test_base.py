@@ -32,6 +32,7 @@ class BaseTest(PluginTestCase):
             '*[Sentry]* {project_name} {tag[level]}: {title}\n{message}\n{url}',
             self.project,
         )
+        self.plugin.set_option('disable_web_preview', True, self.project)
 
         event = self.store_event(
             data={
@@ -63,6 +64,7 @@ class BaseTest(PluginTestCase):
         assert payload == {
             'text': message_text,
             'parse_mode': 'Markdown',
+            'disable_web_page_preview': True,
             'chat_id': '123',
         }
         
@@ -77,6 +79,7 @@ class BaseTest(PluginTestCase):
             json={
                 'text': message_text,
                 'parse_mode': 'Markdown',
+                'disable_web_page_preview': True,
                 'chat_id': '123',
             },
             timeout=30,
