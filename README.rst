@@ -3,7 +3,7 @@ Sentry Telegram |travis| |codecov| |pypi|
 
 Plugin for Sentry which allows sending notification via `Telegram <https://telegram.org/>`_ messenger.
 
-Presented plugin tested with Sentry 22.12.0.
+Presented plugin tested with Sentry 23.8.0.dev0
 
     **DISCLAIMER**: Sentry API is under development and `is not frozen <https://docs.sentry.io/server/plugins/>`_.
 
@@ -11,8 +11,8 @@ Presented plugin tested with Sentry 22.12.0.
 How will it look like
 ---------------------
 
-.. image:: https://raw.githubusercontent.com/vortland/sentry-telegram/master/docs/images/telegram-window.png
-   :target: https://github.com/vortland/sentry-telegram/blob/master/docs/images/telegram-window.png
+.. image:: https://raw.githubusercontent.com/xliee/sentry-telegram/master/docs/images/telegram-window.png
+   :target: https://github.com/xliee/sentry-telegram/blob/master/docs/images/telegram-window.png
    :alt: How will it look like
 
 Installation
@@ -22,7 +22,7 @@ Installation
 
 .. code-block:: bash
 
-    pip install sentry-telegram-py3
+    pip install xliee-sentry-telegram
 
 2. Restart your Sentry instance.
 3. Go to your Sentry web interface. Open ``Settings`` page of one of your projects.
@@ -33,13 +33,13 @@ Installation
 
 6. Done!
 
-.. |travis| image:: https://app.travis-ci.com/vortland/sentry-telegram.svg?branch=master
-   :target: https://app.travis-ci.com/vortland/sentry-telegram
+.. |travis| image:: https://app.travis-ci.com/xliee/sentry-telegram.svg?branch=master
+   :target: https://app.travis-ci.com/xliee/sentry-telegram
    :alt: Build Status
 
-.. |codecov| image:: https://codecov.io/gh/vortland/sentry-telegram/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/vortland/sentry-telegram?branch=master
+.. |codecov| image:: https://codecov.io/gh/xliee/sentry-telegram/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/xliee/sentry-telegram?branch=master
    :alt: Coverage Status
 
-.. |pypi| image:: https://badge.fury.io/py/sentry-telegram-py3.svg
-   :target: https://pypi.python.org/pypi/sentry-telegram-py3
+.. |pypi| image:: https://badge.fury.io/py/xliee-sentry-telegram.svg
+   :target: https://pypi.python.org/pypi/xliee-sentry-telegram

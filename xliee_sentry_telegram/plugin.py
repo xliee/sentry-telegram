@@ -3,7 +3,7 @@ import logging
 from collections import defaultdict
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from sentry.plugins.bases import notify
 from sentry.http import safe_urlopen
@@ -37,24 +37,33 @@ class TelegramNotificationsOptionsForm(notify.NotificationConfigurationForm):
         initial='*[Sentry]* {project_name} {tag[level]}: *{title}*\n```{message}```\n{url}'
     )
 
+    disable_web_preview = forms.BooleanField(
+        label=_('Disable web preview'),
+        help_text=_('Disable web preview for links in messages'),
+        required=False,
+        widget=forms.CheckboxInput(),
+        initial=True,
+    )
+
+
 
 class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
-    title = 'Telegram Notifications Python3'
-    slug = 'sentry_telegram_py3'
+    title = 'Telegram Notifications (xliee)'
+    slug = 'xliee_sentry_telegram'
     description = package_doc
     version = __version__
-    author = 'Vladislav Bukhman'
-    author_url = 'https://github.com/vortland/sentry-telegram'
+    author = 'xliee'
+    author_url = 'https://github.com/xliee/sentry-telegram'
     resource_links = [
-        ('Source', 'https://github.com/vortland/sentry-telegram'),
+        ('Source', 'https://github.com/xliee/sentry-telegram'),
     ]
 
-    conf_key = 'sentry_telegram_py3'
+    conf_key = 'xliee_sentry_telegram'
     conf_title = title
 
     project_conf_form = TelegramNotificationsOptionsForm
 
-    logger = logging.getLogger('sentry.plugins.sentry_telegram_py3')
+    logger = logging.getLogger('sentry.plugins.xliee_sentry_telegram')
 
     def is_configured(self, project, **kwargs):
         return bool(self.get_option('api_token', project) and self.get_option('receivers', project))
@@ -98,6 +107,16 @@ class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
                 'required': True,
                 'default': '*[Sentry]* {project_name} {tag[level]}: *{title}*\n```{message}```\n{url}'
             },
+            {
+                'name': 'disable_web_preview',
+                'label': 'Disable web preview',
+                'type': 'bool',
+                'help': 'Disable web preview for links in messages',
+                'validators': [],
+                'required': False,
+                'default': True,
+            },
+
         ]
 
     def build_message(self, group, event):
@@ -115,10 +134,10 @@ class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
         template = self.get_message_template(group.project)
 
         text = template.format(**names)
-
         return {
             'text': text,
             'parse_mode': 'Markdown',
+            'disable_web_page_preview': self.get_option('disable_web_preview', group.project) or False,
         }
 
     def build_url(self, project):

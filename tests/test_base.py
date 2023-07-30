@@ -9,7 +9,7 @@ from sentry.plugins.base import plugins, Notification
 from sentry.testutils import PluginTestCase
 
 
-from sentry_telegram_py3.plugin import TelegramNotificationsPlugin
+from xliee_sentry_telegram.plugin import TelegramNotificationsPlugin
 
 
 class BaseTest(PluginTestCase):
@@ -19,7 +19,7 @@ class BaseTest(PluginTestCase):
 
 
     def test_conf_key(self):
-        assert self.plugin.conf_key == "sentry_telegram_py3"
+        assert self.plugin.conf_key == "xliee_sentry_telegram"
 
     @responses.activate
     def test_complex_send_notification(self):
