@@ -40,9 +40,8 @@ class TelegramNotificationsOptionsForm(notify.NotificationConfigurationForm):
     disable_web_preview = forms.BooleanField(
         label=_('Disable web preview'),
         help_text=_('Disable web preview for links in messages'),
-        required=False,
         widget=forms.CheckboxInput(),
-        initial=True,
+        initial=False,  
     )
 
 
@@ -114,7 +113,7 @@ class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
                 'help': 'Disable web preview for links in messages',
                 'validators': [],
                 'required': False,
-                'default': True,
+                'default': False,
             },
 
         ]
