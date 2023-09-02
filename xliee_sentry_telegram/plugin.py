@@ -121,9 +121,19 @@ class TelegramNotificationsPlugin(CorePluginMixin, notify.NotificationPlugin):
     def build_message(self, group, event):
         the_tags = defaultdict(lambda: '[NA]')
         the_tags.update({k:v for k, v in event.tags})
+        user = {
+            'ip': '[NA]',
+            'username': '[NA]'
+        }
+        if event['ip_address']:
+            user['ip'] = event['ip_address']
+        if event['username']:
+            user['username'] = event['username']
+
         names = {
             'title': event.title,
             'tag': the_tags,
+            'user': user,
             'message': event.message,
             'culprit': group.culprit,
             'project_name': group.project.name,
